@@ -3,6 +3,9 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.ts",
+    "engine": {
+       "node": "18.x"
+    },
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
         "start": "node build/index.js",
