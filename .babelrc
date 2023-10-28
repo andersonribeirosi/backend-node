@@ -1,0 +1,32 @@
+{
+    "presets": [
+        [
+            "@babel/preset-env",
+            {
+                // this mode anable async/await in babel
+                // if only "@babel/preset-env" is present, raises an error "Uncaught ReferenceError: regeneratorRuntime is not defined"
+                "targets": {
+                    "node": "current"
+                }
+            }
+        ],
+        "@babel/preset-typescript"
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-proposal-optional-chaining",
+        "@babel/plugin-proposal-class-properties",
+        [
+            "module-resolver",
+            {
+                "alias": {
+                    "@path": "./src/path"
+                }
+            }
+        ]
+    ],
+    "ignore": [
+        "**/*.spec.ts",
+        "**/*.test.ts"
+    ]
+}
