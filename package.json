@@ -2,13 +2,10 @@
     "name": "backend-orders",
     "version": "1.0.0",
     "description": "",
-    "engines": {
-        "node": "18.x"
-     },
     "main": "index.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "node index.ts",
+        "start": "node build/index.js",
         "build": "tsc"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
