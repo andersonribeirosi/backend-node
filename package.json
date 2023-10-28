@@ -3,14 +3,10 @@
     "version": "1.0.0",
     "description": "",
     "main": "index.ts",
-    "engines": {
-        "node": "18.x"
-    },
-    "type": "module",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "node index.ts",
-        "build": "npx webpack --config webpack.config.js --mode development"
+        "start": "node build/server.js",
+        "build": "tsc"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
