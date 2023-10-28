@@ -2,14 +2,14 @@
     "name": "backend-orders",
     "version": "1.0.0",
     "description": "",
-    "main": "index.ts",
     "engines": {
-       "node": "18.x"
-    },
+        "node": "18.x"
+     },
+    "main": "index.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "node build/index.js",
-        "build": "tsc"
+        "start": "nodemon index.ts",
+        "build": "npx webpack --config webpack.config.js --mode development"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
