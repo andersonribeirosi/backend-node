@@ -8,8 +8,8 @@
     "main": "index.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "nodemon index.ts",
-        "build": "npx webpack --config webpack.config.js --mode development"
+        "start": "node index.ts",
+        "build": "tsc"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
