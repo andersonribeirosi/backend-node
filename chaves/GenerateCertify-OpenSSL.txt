@@ -3,6 +3,16 @@ npm run build para gerar o build do projeto React
 Adicionar ao index.html do build do react
 Para que as chamadas as API sejam feitas usando https
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+_______________________________________________________________________________
+Definir os valores abaixo nas variaveis do mongodbatlas
+HTTP_PROTOCOLS=http
+HTTP_PORT=3220
+
+MONDB_URI=mongodb+srv://root:root@cluster0.cvyigyo.mongodb.net/
+SECRET=6521767b8e5ce8d06cc9b071
+
+Adicionar o Ip address para todos
+_______________________________________________________________________________
 
 Instale o OpenSSL:
 Insira o nome da variável em variaveis do usuario 'OPENSSL_CONF' e o valor com 'C:\Program Files\OpenSSL-Win64\bin\openssl.cfg' e após clique em 'ok'.

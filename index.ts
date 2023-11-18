@@ -20,7 +20,6 @@ import { serviceInvoicesRoutes } from './src/api/serviceInvoices'
 
 const expressPort = process.env.HTTP_PORT
 const mongoDbUrl = process.env.MONDB_URI || ''
-const mongoDbName = process.env.MONDB_NAME || ''
 
 const app = express()
 app.use(bodyParser.json({ limit: '50mb' }))
@@ -55,12 +54,6 @@ mongoose.connect(`${mongoDbUrl}`, {
 } as ConnectOptions).then(() => {
   console.log('MongoDB connected!')
 })
-// mongoose.connect(`${mongoDbUrl}/${mongoDbName}`, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// } as ConnectOptions).then(() => {
-//   console.log('MongoDB connected!')
-// })
 
 app.listen(expressPort, () => {
   console.log(`Servidor rodando em http://localhost:${expressPort}`)
