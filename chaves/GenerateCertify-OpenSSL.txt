@@ -1,0 +1,24 @@
+npm run build para gerar o build do projeto React
+
+Adicionar ao index.html do build do react
+Para que as chamadas as API sejam feitas usando https
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+Instale o OpenSSL:
+Insira o nome da variável em variaveis do usuario 'OPENSSL_CONF' e o valor com 'C:\Program Files\OpenSSL-Win64\bin\openssl.cfg' e após clique em 'ok'.
+em path adicionar o caminho 'C:\Program Files\OpenSSL-Win64\bin' e clique em 'ok'.
+
+Certifique-se de ter o OpenSSL instalado em sua máquina. Se você ainda não o possui, você pode instalá-lo conforme necessário para o seu sistema operacional.
+
+Abra um terminal ou prompt de comando no diretório em que deseja gerar os arquivos do certificado.
+
+1 - Crie a chave privada:
+Execute o seguinte comando para gerar uma chave privada. Você será solicitado a inserir uma senha (opcional).
+openssl genpkey -algorithm RSA -out chave-privada.pem
+
+2 - Crie o certificado público:
+Execute o seguinte comando para gerar um certificado público usando a chave privada. Você será solicitado a fornecer informações sobre o certificado, como país, estado, cidade, etc.
+openssl req -new -key chave-privada.pem -out certificado-publico.csr
+
+3 - Em seguida, gere o certificado assinado usando o seguinte comando:
+openssl x509 -req -in certificado-publico.csr -signkey chave-privada.pem -out certificado-publico.pem

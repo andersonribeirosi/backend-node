@@ -69,15 +69,13 @@ route.get(ApiRoutesNames.counters, async (req: Request<{}, any, any, any, Record
 route.put(ApiRoutesNames.counters, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const data: ICounter = req.body
-    const filter = { _id: data.id };
+    const where = { _id: data.id };
 
     var counter: ICounter = await DataSource.update({
       data: data,
       model: counterModel,
       options: {
-        where: {
-          filter: filter
-        }
+        where
       }
     })
 

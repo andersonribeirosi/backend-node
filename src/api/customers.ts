@@ -37,10 +37,8 @@ route.post(ApiRoutesNames.customers, async (req: Request<{}, any, any, any, Reco
 route.get(`${ApiRoutesNames.customers}/:id`, async (req: Request<any, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const query = req?.params.id
-    var whereObject = query != null ? JSON.parse(query) : {}
-    var customers: ICustomer[] = await customerModel.find({
-      id: whereObject
-    })
+    var id = query != null ? JSON.parse(query) : {}
+    var customers: ICustomer[] = await customerModel.find({ id })
 
     if (customers) {
       res.status(200).json(ApiUtils.apiResult({ data: customers, success: true, count: customers.length }))
@@ -63,9 +61,7 @@ route.get(ApiRoutesNames.customers, async (req: Request<{}, any, any, any, Recor
       options: {
         exclude: exclude,
         sort: { name: 1 },
-        where: {
-          filter: where
-        }
+        where
       }
     })
 
@@ -84,15 +80,13 @@ route.get(ApiRoutesNames.customers, async (req: Request<{}, any, any, any, Recor
 route.put(ApiRoutesNames.customers, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const data: ICustomer = req.body
-    const filter = { id: data.id };
+    const where = { id: data.id };
 
     var customer: ICustomer = await DataSource.update({
       data: data,
       model: customerModel,
       options: {
-        where: {
-          filter: filter
-        }
+        where
       }
     })
 

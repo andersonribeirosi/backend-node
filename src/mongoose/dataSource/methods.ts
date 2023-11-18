@@ -16,8 +16,8 @@ export class DataSource {
     static async read({ model, options }: { model: any, options?: Options }) {
         var response
         try {
-            var whereObject = options?.where?.filter != null ? JSON.parse(options?.where?.filter) : {}
-            var response = await model.find(whereObject)
+            var where = options?.where != null ? JSON.parse(options?.where) : {}
+            var response = await model.find(where)
                 .select(options?.exclude)
                 .collation({ locale: "en" }) // insensível a maiúsculas/minúsculas
                 .sort(options?.sort)

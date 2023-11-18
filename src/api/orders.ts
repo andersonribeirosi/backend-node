@@ -10,15 +10,17 @@ const route = express.Router()
 route.post(ApiRoutesNames.orders, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const data: IOrder = req.body
-    const nextOrderId = await new CountersDataSource(counterModel).seqNext('orders');
 
     if (!data.orderId)
-      data.orderId = nextOrderId
+      data.orderId = await new CountersDataSource(counterModel).seqNext('orders')
+
+    if (data.createdAt)
+      data.createdAt
 
     const newOrder: IOrder = await orderModel.create(data)
-    const order: IOrder[] = await orderModel.find({
-      orderId: newOrder.orderId
-    })
+
+    const order: IOrder[] = await orderModel.find({ orderId: newOrder.orderId })
+
     if (order) {
       res.status(200).json(ApiUtils.apiResult({ data: order, success: true, }))
     } else {
@@ -32,10 +34,11 @@ route.post(ApiRoutesNames.orders, async (req: Request<{}, any, any, any, Record<
 route.get(ApiRoutesNames.orders, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const query = req?.query?.where as string
-    var whereObject = query != null ? JSON.parse(query) : {}
-    var orders: IOrder[] = await orderModel.find(whereObject)
+    var where = query != null ? JSON.parse(query) : {}
+    var orders: IOrder[] = await orderModel.find(where)
       .collation({ locale: "en" }) // classificação insensível a maiúsculas/minúsculas
-      .sort({ 'company.name': 1 })
+      // .sort({ 'company.name': 1 })
+      .sort({ 'createdAt': -1, 'company.name': 1 })
       .lean()
       .exec();
 
@@ -53,10 +56,8 @@ route.get(ApiRoutesNames.orders, async (req: Request<{}, any, any, any, Record<s
 route.get(`${ApiRoutesNames.orders}/:id`, async (req: Request<any, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const query = req?.params.id
-    var whereObject = query != null ? JSON.parse(query) : {}
-    var orders: IOrder[] = await orderModel.find({
-      orderId: whereObject
-    })
+    var orderId = query != null ? JSON.parse(query) : {}
+    var orders: IOrder[] = await orderModel.find({ orderId: orderId })
 
     if (orders) {
       res.status(200).json(ApiUtils.apiResult({ data: orders, success: true, count: orders.length }))
@@ -72,13 +73,30 @@ route.get(`${ApiRoutesNames.orders}/:id`, async (req: Request<any, any, any, any
 route.put(ApiRoutesNames.orders, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const data: IOrder = req.body
-    const filter = { orderId: data.orderId };
-    const newOrder: any = await orderModel.updateOne(filter, data)
+    // Tive que trocar para  updateMany, pois não estava atualizando determinados campos
+    const updateOrder: any = await orderModel.updateMany({ orderId: data.orderId }, data)
 
-    if (newOrder) {
-      res.status(200).json(ApiUtils.apiResult({ data: newOrder, success: true, }))
+    if (updateOrder) {
+      res.status(200).json(ApiUtils.apiResult({ data: updateOrder, success: true, }))
     } else {
       res.status(404).json(ApiUtils.apiResult({ data: {}, success: false, msg: 'Erro ao cadastrar' }))
+    }
+
+  } catch (error: any) {
+    res.status(500).send(error.message);
+  }
+})
+
+route.delete(`${ApiRoutesNames.orders}/:id`, async (req: Request<any, any, any, any, Record<string, any>>, res: any, next: any) => {
+  try {
+    const query = req?.params.id
+    var orderId = query != null ? JSON.parse(query) : {}
+    var order = await orderModel.deleteOne({ orderId: orderId })
+
+    if (order) {
+      res.status(200).json(ApiUtils.apiResult({ data: order, success: true }))
+    } else {
+      res.status(404).json(ApiUtils.apiResult({ data: [], success: false }))
     }
 
   } catch (error: any) {

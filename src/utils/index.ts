@@ -1,8 +1,131 @@
 import CryptoJS from 'crypto-js'
 import { CountersDataSource } from '../mongoose/dataSource/counters'
 import { DataSource } from '../mongoose/dataSource/methods'
-import { IApiResult, ICompany, ICounter, ICustomer, IUser } from "../mongoose/model"
-import { Company, Counter, Customer, User } from '../mongoose/schemas'
+import { IApiResult, ICompany, ICounter, ICustomer, IPayment, IShippingCompany, IUser } from "../mongoose/model"
+import { Company, Counter, Customer, Payment, User, ShippingCompany } from '../mongoose/schemas'
+
+export const createShippingCompaniesDefault = async () => {
+    var shippingCompanies: IShippingCompany[] = [
+        {
+            "id": await new CountersDataSource(Counter).seqNext('shipping-companies'),
+            "name": "Stancanelli - Tr. Logisti. Ltda.",
+            "address": "Rod. BR 101 - Km 88, s/nº",
+            "email": "",
+            "phone": "(83)3233-2204 (83)3233-4122",
+            "city": "João Pessoa",
+            "state": "Paraiba",
+            "cep": "50088-200"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('shipping-companies'),
+            "name": "Figueiredo - Rápido",
+            "address": "Av. Jor. Assis Chateubriand, 1391",
+            "email": "",
+            "phone": "(83)3322-1400",
+            "city": "Campina Grande",
+            "state": "Paraiba",
+            "cep": "58414-500"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('shipping-companies'),
+            "name": "Marajá - Transportes e Logística",
+            "address": "Rua Frei Vital, 168 - s/3 G",
+            "email": "",
+            "phone": "(83)3222-0445",
+            "city": "João Pessoa",
+            "state": "Paraiba",
+            "cep": "58010-620"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('shipping-companies'),
+            "name": "Campinense - Transp.Cargas Ltda.",
+            "address": "Rua Julia Maciel Eulalia , 100",
+            "email": "",
+            "phone": "(83)3182-3400",
+            "city": "Queimadas",
+            "state": "Paraiba",
+            "cep": "58475-000"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('shipping-companies'),
+            "name": "Solnordeste - Tr.Log.Distrib.",
+            "address": "Rua Cap. José Rodrigues do Ó , 100 - Gl. 102",
+            "email": "",
+            "phone": "(83)3233-6565 (83)3233-9165",
+            "city": "João Pessoa",
+            "state": "Paraiba",
+            "cep": "58082-060",
+        },
+    ]
+
+    for (const shippingCompany of shippingCompanies) {
+        var shippingCompanies: IShippingCompany[] = await ShippingCompany.find({
+            name: shippingCompany.name
+        })
+
+        if (!shippingCompanies[0])
+            await DataSource.create({
+                data: shippingCompany,
+                model: ShippingCompany,
+            })
+        else
+            return
+    }
+}
+
+export const createPaymentsDefault = async () => {
+    var payments: IPayment[] = [
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "28 DIAS",
+            "name": "28 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "35 DIAS",
+            "name": "35 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "28/35 DIAS",
+            "name": "28/35 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "28/35/42 DIAS",
+            "name": "28/35/42 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "28/35/42/49 DIAS",
+            "name": "28/35/42/49 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "28/35/42/49/56 DIAS",
+            "name": "28/35/42/49/56 DIAS"
+        },
+        {
+            "id": await new CountersDataSource(Counter).seqNext('payments'),
+            "payment": "30/60/90 DIAS",
+            "name": "30/60/90 DIAS"
+        },
+    ]
+
+    for (const payment of payments) {
+        var users: IPayment[] = await Payment.find({
+            payment: payment.name
+        })
+
+        if (!users[0])
+            await DataSource.create({
+                data: payment,
+                model: Payment,
+            })
+        else
+            return
+    }
+}
 
 export const createCustomersDefault = async () => {
     var customers: ICustomer[] = [
@@ -81,8 +204,14 @@ export const createCompaniesDefault = async () => {
         {
             "id": await new CountersDataSource(Counter).seqNext('companies'),
             "name": "METALÚRGICA SÃO RAPHAEL",
-            "cnpj": "10.075.456/0001-92",
-            "email": "saoraphael@saoraphael.com"
+            "address": 'Via de Acesso João de Goes, 478',
+            "neighborhood": 'Sítio Pedra Rachada',
+            "city": "Jandira",
+            "state": 'SP',
+            "cnpj": "61.370.615/0001-02",
+            "ie": '398.020.115',
+            "email": "cpagar@saoraphael.com",
+
         },
         {
             "id": await new CountersDataSource(Counter).seqNext('companies'),
@@ -144,12 +273,18 @@ export const createDefaultConfig = async () => {
 
         await new CountersDataSource(Counter).createSeqNext<ICounter>('orders')
 
+        await new CountersDataSource(Counter).createSeqNext<ICounter>('payments')
+        await new CountersDataSource(Counter).createSeqNext<ICounter>('shipping-companies')
+        await new CountersDataSource(Counter).createSeqNext<ICounter>('service-invoices')
+
     } else {
         return
     }
 
     createCompaniesDefault()
     createCustomersDefault()
+    createPaymentsDefault()
+    createShippingCompaniesDefault()
 }
 
 export class Validator {

@@ -66,9 +66,7 @@ route.get(ApiRoutesNames.users, async (req: Request<{}, any, any, any, Record<st
       options: {
         exclude: exclude,
         sort: { name: 1 },
-        where: {
-          filter: where
-        }
+        where
       }
     })
 
@@ -87,15 +85,13 @@ route.get(ApiRoutesNames.users, async (req: Request<{}, any, any, any, Record<st
 route.put(ApiRoutesNames.users, async (req: Request<{}, any, any, any, Record<string, any>>, res: any, next: any) => {
   try {
     const data: IUser = req.body
-    const filter = { id: data.id };
+    const where = { id: data.id };
 
     var user: IUser = await DataSource.update({
       data: data,
       model: userModel,
       options: {
-        where: {
-          filter: filter
-        }
+        where
       }
     })
 

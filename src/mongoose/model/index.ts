@@ -2,8 +2,35 @@ import mongoose from "mongoose"
 
 // COUNTER NEXTSEQ
 export interface ICounter {
-    id: string,
+    id: string
     seq: number
+}
+export interface IPayment {
+    id?: number
+    payment?: string
+    name?: string
+}
+
+export interface IServiceInvoice {
+    id?: number
+    userId?: number
+    company?: ICompany | undefined
+    createdAt: string | undefined
+    paymentCondition?: string | undefined
+    valueServiceInvoice?: number
+    totalServiceInvoice?: number
+    irRf?: number
+}
+
+export interface IShippingCompany {
+    id?: number
+    name?: string
+    phone?: string
+    email?: string
+    city?: string
+    state?: string
+    cep?: string
+    address?: string
 }
 
 export interface Options {
@@ -11,9 +38,9 @@ export interface Options {
     where?: any
     exclude?: string
 }
-// 
+
 export interface IAuthentication {
-    token: string,
+    token: string
     user: IUser
 }
 
@@ -48,40 +75,74 @@ export interface ICompany {
     id: number
     name?: string
     cnpj?: string
+    ie?: string
+    phone?: string
     email?: string
+    address?: string
+    neighborhood?: string
+    city?: string
+    state?: string
+    zipCode?: string
 }
+
+
 
 export interface IItemOrder {
     id?: any
     product?: string
     price?: number
     quantity?: number
-    ipi?: number,
-    desc1?: number,
+    ipi?: number
+    desc1?: number
     desc2?: number
 }
 
 // Order
 export interface IOrder {
     userId?: number
-    user?: IUser 
+    user?: IUser
 
     companyId?: string
     company?: ICompany
 
     customerId?: string
-    customer?: ICustomer 
+    customer?: ICustomer
 
     orderId?: number
+    createdAt: string | undefined
 
     // PAYMENT - OBSERVATION - SHIPPING COMPANY
-    paymentCondition?: string
+    payment?: IPayment
     shippingCompany?: string
     annotation: string
-   
+
     items?: IItemOrder[]
     total?: number
 
     closed?: boolean
 }
 
+// Order
+export interface IPriceQuote {
+    userId?: number
+    user?: IUser
+
+    companyId?: string
+    company?: ICompany
+
+    customerId?: string
+    customer?: ICustomer
+
+    orderId?: number
+    createdAt: string | undefined
+
+    // PAYMENT - OBSERVATION - SHIPPING COMPANY
+    payment?: IPayment
+    shippingCompany?: string
+    annotation: string
+
+    items?: IItemOrder[]
+    total?: number
+
+    closed?: boolean
+}

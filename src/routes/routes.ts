@@ -6,5 +6,10 @@ export const ApiRoutesNames = {
   orders: '/orders',
   authentication: '/auth',
   companies: '/companies',
-  uploads: '/uploads'
+  uploads: '/uploads',
+  payments: '/payments',
+  shippingCompanies: '/shipping-companies',
+  priceQuotes: '/price-quotes',
+  charts: '/charts/:year/:month',
+  serviceInvoices: '/service-invoices'
 }
