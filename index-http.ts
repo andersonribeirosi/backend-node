@@ -49,12 +49,18 @@ app.get('/', (req, res) => { res.send('Server is running...') })
 
 createDefaultConfig()
 
-mongoose.connect(`${mongoDbUrl}/${mongoDbName}`, {
+mongoose.connect(`${mongoDbUrl}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 } as ConnectOptions).then(() => {
   console.log('MongoDB connected!')
 })
+// mongoose.connect(`${mongoDbUrl}/${mongoDbName}`, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// } as ConnectOptions).then(() => {
+//   console.log('MongoDB connected!')
+// })
 
 app.listen(expressPort, () => {
   console.log(`Servidor rodando em http://localhost:${expressPort}`)
