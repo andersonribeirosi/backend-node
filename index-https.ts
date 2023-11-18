@@ -17,8 +17,6 @@ import { shippingCompanyRoutes } from './src/api/shippingCompanies'
 import { priceQuotesRoutes } from './src/api/priceQuotes'
 import { chartsRoutes } from './src/api/charts'
 import { serviceInvoicesRoutes } from './src/api/serviceInvoices'
-import * as https from 'https';
-import * as fs from 'fs';
 
 const expressPort = process.env.HTTP_PORT
 const mongoDbUrl = process.env.MONDB_URI || ''
@@ -47,18 +45,6 @@ app.use([
   serviceInvoicesRoutes
 ])
 
-const sslOptions = {
-  key: fs.readFileSync('./chaves/chave-privada.pem'),
-  cert: fs.readFileSync('./chaves/certificado-publico.pem'),
-};
-
-app.use((req, res, next) => {
-  if (!req.secure) {
-    return res.redirect('https://' + req.headers.host + req.url);
-  }
-  next();
-});
-
 app.get('/', (req, res) => { res.send('Server is running...') })
 
 createDefaultConfig()
@@ -76,7 +62,6 @@ mongoose.connect(`${mongoDbUrl}`, {
 //   console.log('MongoDB connected!')
 // })
 
-const server = https.createServer(sslOptions, app);
-server.listen(expressPort, () => {
-  console.log(`Servidor rodando em https://localhost:${expressPort}`)
+app.listen(expressPort, () => {
+  console.log(`Servidor rodando em http://localhost:${expressPort}`)
 })
