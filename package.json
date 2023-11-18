@@ -2,10 +2,10 @@
     "name": "backend-orders",
     "version": "1.0.0",
     "description": "",
-    "main": "index-http.ts",
+    "main": "index.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "nodemon --no-warnings index-http.ts"
+        "start": "nodemon --no-warnings index.ts"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
