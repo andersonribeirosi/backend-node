@@ -2,7 +2,7 @@
     "name": "backend-orders",
     "version": "1.0.0",
     "description": "",
-    "main": "index.ts",
+    "main": "index-https.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
         "start": "nodemon --no-warnings index-https.ts"
