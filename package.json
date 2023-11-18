@@ -5,8 +5,7 @@
     "main": "index.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "nodemon index-https.ts",
-        "build": "npx webpack --config webpack.config.js --mode development"
+        "start": "nodemon index-https.ts"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
