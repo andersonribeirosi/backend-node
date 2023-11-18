@@ -5,7 +5,7 @@
     "main": "index-https.ts",
     "scripts": {
         "test": "jest teste.spec.ts --detectOpenHandles",
-        "start": "nodemon --no-warnings index-https.ts"
+        "start": "nodemon --no-warnings index-http.ts"
     },
     "author": "Anderson Ribeiro <andersonribeiro.sifacisa@gmail.com>",
     "license": "MIT",
