@@ -44,6 +44,9 @@ app.use([
   serviceInvoicesRoutes
 ])
 
+console.log('deploy');
+
+
 app.get('/', (req, res) => { res.send('Server is running...') })
 
 createDefaultConfig()
