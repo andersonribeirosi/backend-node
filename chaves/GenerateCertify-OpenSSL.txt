@@ -1,19 +1,32 @@
-npm run build para gerar o build do projeto React
-
-Adicionar ao index.html do build do react
-Para que as chamadas as API sejam feitas usando https
-<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 _______________________________________________________________________________
-Definir os valores abaixo nas variaveis do mongodbatlas
+npm run build para gerar o build do projeto React
+carregar a pasta build no netlify
+
+-------------------------------------------------
+BACKEND
+Render - Configuração
+Cria o projeto e define estas Configurações
+Build Command npm install
+Start Command npm start
+root dicrectory - vazio
+
+Definir os valores abaixo nas variaveis do render - Env
+https://dashboard.render.com/web/srv-clciffd4lnec73e334a0/env
 HTTP_PROTOCOLS=http
 HTTP_PORT=3220
 
 MONDB_URI=mongodb+srv://root:root@cluster0.cvyigyo.mongodb.net/
 SECRET=6521767b8e5ce8d06cc9b071
 
-Adicionar o Ip address para todos
+Fazer o deploy
+obs: dentro da pasta .vscode - não pode conter o launch.json
+_________________________________________________________________________
+MongodbAtlas
+Na hora de criar o cluster no mongodbatlas, escolher o servidor da AWS / N. Virginia (us-east-1)
+Adicionar o Ip address para todos no mongodbatlas 0.0.0
 _______________________________________________________________________________
 
+Opcional
 Instale o OpenSSL:
 Insira o nome da variável em variaveis do usuario 'OPENSSL_CONF' e o valor com 'C:\Program Files\OpenSSL-Win64\bin\openssl.cfg' e após clique em 'ok'.
 em path adicionar o caminho 'C:\Program Files\OpenSSL-Win64\bin' e clique em 'ok'.
